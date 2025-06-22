@@ -28,7 +28,7 @@ import textwrap
 # ────────────────────────────────────────────────────────────────────────────────
 # 1️⃣  OPENAI KEY
 # ────────────────────────────────────────────────────────────────────────────────
-openai.api_key = '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'
+openai.api_key = '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'
 
 # ────────────────────────────────────────────────────────────────────────────────
 # 2️⃣  MODERN CSS
