@@ -28,8 +28,7 @@ import textwrap
 # ────────────────────────────────────────────────────────────────────────────────
 # 1️⃣  OPENAI KEY
 # ────────────────────────────────────────────────────────────────────────────────
-openai.api_key = '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'
-
+openai.api_key = st.secrets["OPENAI_API_KEY"]
 # ────────────────────────────────────────────────────────────────────────────────
 # 2️⃣  MODERN CSS
 # ────────────────────────────────────────────────────────────────────────────────
