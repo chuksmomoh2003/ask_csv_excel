@@ -1,14 +1,8 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 """
 Streamlit Conversational Data Analysis App
 ──────────────────────────────────────────
 • Upload CSV/XLSX
-• Build plots (incl. Clustered Bar Chart)
+• Build plots (incl. Pie Chart & Clustered Bar Chart)
 • Ask GPT‑4 questions; GPT can execute Python
   code on the *entire* DataFrame via function
   calling, so no row limit.
@@ -110,7 +104,8 @@ if uploaded_file:
             "Line Plot",
             "Histogram",
             "Bar Plot",
-            "Clustered Bar Chart",  # NEW
+            "Pie Chart",           # NEW
+            "Clustered Bar Chart",
             "Correlation Heatmap",
         ),
     )
@@ -120,7 +115,7 @@ if uploaded_file:
     if plot_type in ("Scatter Plot", "Line Plot"):
         x_axis = st.sidebar.selectbox("X‑axis:", df.columns)
         y_axis = st.sidebar.selectbox("Y‑axis:", df.columns)
-    elif plot_type in ("Histogram", "Bar Plot"):
+    elif plot_type in ("Histogram", "Bar Plot", "Pie Chart"):
         column = st.sidebar.selectbox("Column:", df.columns)
     elif plot_type == "Clustered Bar Chart":
         x_axis = st.sidebar.selectbox("X‑axis (categorical):", df.columns)
@@ -153,6 +148,12 @@ if uploaded_file:
         elif plot_type == "Bar Plot":
             df[column].value_counts().plot(kind="bar", ax=ax)
             ax.set_title(f"Bar Plot of {column}")
+
+        elif plot_type == "Pie Chart":
+            pie_data = df[column].value_counts()
+            ax.pie(pie_data.values, labels=pie_data.index, autopct="%1.1f%%", startangle=90)
+            ax.set_title(f"Pie Chart of {column}")
+            ax.axis("equal")  # Equal aspect ratio ensures that pie is drawn as a circle.
 
         elif plot_type == "Clustered Bar Chart":
             sns.countplot(data=df, x=x_axis, hue=hue_axis, ax=ax)
@@ -285,9 +286,6 @@ if uploaded_file:
 
 else:
     st.info("👆 Upload a file to get started!")
-
-
-# In[ ]:
 
 
 
